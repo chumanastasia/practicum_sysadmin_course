@@ -6,31 +6,45 @@
 2. Настроим файловый сервер на первой VM 10.10.0.229
 
 - Подключаемся к серверу по SSH-протоколу, используя логин s5390848 и IP-адрес 10.10.0.229
-> ssh s5390848@10.10.0.229
+```commandline
+ssh s5390848@10.10.0.229
+```
 
 -  Обновляем список доступных пакетов и их версий в системе Ubuntu/Debian
-> sudo apt-get update
+```commandline
+sudo apt-get update
+```
 
 -  Устанавливаем пакет Samba 
-> sudo apt install samba -y
+```commandline
+sudo apt install samba -y
+```
 
 - Создаем нового пользователя smbuser с домашним каталогом 
-> sudo useradd -m smbuser
+```commandline
+sudo useradd -m smbuser
+```
 
 - Добавляем пользователя smbuser в базу паролей Samba и устанавливаем для него пароль.
-> sudo smbpasswd -a smbuser
+```commandline
+sudo smbpasswd -a smbuser
+```
 
 - Предоставляем полные права доступа (777) всем пользователям к домашнему каталогу /home/smbuser/
-> sudo chmod 777 /home/smbuser/
+```commandline
+sudo chmod 777 /home/smbuser/
+```
 
 - Создаем копию оригинального файла конфигурации Samba
-> sudo cp /etc/samba/smb.conf /etc/samba/smb_backup.conf
+```commandline
+sudo cp /etc/samba/smb.conf /etc/samba/smb_backup.conf
+``` 
 
 
 -  Открываем файл конфигурации Samba для редактирования и добавляем/изменяем следующие настройки:
 > sudo nano /etc/samba/smb.conf
 
-```bash
+```commandline
 [global]
    security = user
    # остальные настройки...
@@ -45,40 +59,60 @@
 ```
 
 - Выполним перезапуск службы Samba
-> sudo systemctl restart smbd.service
+```commandline
+sudo systemctl restart smbd.service
+```
 
 3. Настроим автомонтирование на второй VM 10.11.1.208
 
 -  Подключаемся к клиентскому серверу по SSH-протоколу
-> ssh s5390848@10.11.1.208
+```commandline
+ssh s5390848@10.11.1.208
+```
 
 - Обновляем список доступных пакетов в системе
-> sudo apt-get update
+```commandline
+sudo apt-get update
+```
 
 -  Устанавливаем пакет cifs-utils
-> sudo apt-get install cifs-utils -y
+```commandline
+sudo apt-get install cifs-utils -y
+```
 
 - Создаем директорию, где будут монтироваться ресурсы
-> sudo mkdir /mnt/samba/
+```commandline
+sudo mkdir /mnt/samba/
+```
 
 - Выполняем тестовое ручное монтирование 
-> sudo mount.cifs //10.10.0.229/home_smbuser /mnt/samba
+```commandline
+sudo mount.cifs //10.10.0.229/home_smbuser /mnt/samba
+```
 
 - Отмонтируем 
-> sudo umount -a -t cifs -l
+```commandline
+sudo umount -a -t cifs -l
+```
 
 - Устанавливаем autofs
-> sudo apt-get install autofs
+```commandline
+sudo apt-get install autofs
+```
 
 - Создаем папку для хранения кастомных конфигураций
-> sudo mkdir /etc/autofs/
+```commandline
+sudo mkdir /etc/autofs/
+```
 
 - Редактируем основной конфигурационный файл /etc/auto.master (после установки autofs появится атвоматически)
-> sudo nano /etc/auto.master
+```commandline
+sudo nano /etc/auto.master
+```
 
 Конфиг будет выглядеть так (добавляется только последняя строка, первые две оставляем без изменений)
 
-```bash
+```commandline
 +dir:/etc/auto.master.d
 +auto.master
 /mnt/samba /etc/autofs/auto.samba --timeout 60 --browse
