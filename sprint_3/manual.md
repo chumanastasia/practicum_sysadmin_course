@@ -42,7 +42,9 @@ sudo cp /etc/samba/smb.conf /etc/samba/smb_backup.conf
 
 
 -  Открываем файл конфигурации Samba для редактирования и добавляем/изменяем следующие настройки:
-> sudo nano /etc/samba/smb.conf
+```commandline
+sudo nano /etc/samba/smb.conf
+```
 
 ```commandline
 [global]
