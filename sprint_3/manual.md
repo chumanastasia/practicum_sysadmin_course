@@ -113,13 +113,23 @@ sudo nano /etc/auto.master
 ```
 
 Конфиг будет выглядеть так (добавляется только последняя строка, первые две оставляем без изменений)
-
 ```commandline
 +dir:/etc/auto.master.d
 +auto.master
 /mnt/samba /etc/autofs/auto.samba --timeout 60 --browse
 ```
 
+- Создаем и редактируем файл с правилами монтирования
+```commandline
+home_smbuser -fstype=cifs,username=smbuser,password=123456 ://10.10.0.229/home_smbuser
+```
+
+- Перезапускаем службу autofs для применения настроек
+```commandline
+sudo systemctl restart autofs
+```
+
+4. Проверяем работу автомонтирования 
 
 
 ## Задание №2. Настройка прокси-сервера.
