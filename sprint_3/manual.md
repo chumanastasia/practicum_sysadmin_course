@@ -2,8 +2,8 @@
 
 # Спринт 3. Настройка файлового и прокси-сервера
 ## Задание №1. Настройка файлового сервера и монтирование директории. 
-1. Создать две виртуальные машины через CloudShell - https://cloudshell.sysadmin.education-services.ru/
-2. Настроим файловый сервер на первой VM 10.10.0.229
+### 1. Создать две виртуальные машины через CloudShell - https://cloudshell.sysadmin.education-services.ru/
+### 2. Настроим файловый сервер на первой VM 10.10.0.229
 
 - Подключаемся к серверу по SSH-протоколу, используя логин s5390848 и IP-адрес 10.10.0.229
 ```commandline
@@ -65,7 +65,7 @@ sudo nano /etc/samba/smb.conf
 sudo systemctl restart smbd.service
 ```
 
-3. Настроим автомонтирование на второй VM 10.11.1.208
+### 3. Настроим автомонтирование на второй VM 10.11.1.208
 
 -  Подключаемся к клиентскому серверу по SSH-протоколу
 ```commandline
@@ -129,11 +129,11 @@ home_smbuser -fstype=cifs,username=smbuser,password=123456 ://10.10.0.229/home_s
 sudo systemctl restart autofs
 ```
 
-4. Проверяем работу автомонтирования 
+### 4. Проверяем работу автомонтирования 
 
 
 ## Задание №2. Настройка прокси-сервера.
 
 
-1. Создать третью VM через CloudShell - https://cloudshell.sysadmin.education-services.ru/
+### 1. Создать третью VM через CloudShell - https://cloudshell.sysadmin.education-services.ru/
 2. 
